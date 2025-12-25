@@ -1,0 +1,14 @@
+// to show running docker images
+docker ps 
+// to enter docker image bash of course change the image id 
+docker exec -it 45ec590b0ffb bash
+// to enter postegers command 
+psql -U postgres
+// to show list of postegres databases
+\l
+// to exit the list
+\q     
+// to connect to the database 
+ \c CatalogDb
+ // to show the tables
+ \d 
