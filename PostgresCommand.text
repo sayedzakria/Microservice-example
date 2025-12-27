@@ -12,3 +12,5 @@ psql -U postgres
  \c CatalogDb
  // to show the tables
  \d 
+ // to select data from table 
+  SELECT * FROM mt_doc_product;
