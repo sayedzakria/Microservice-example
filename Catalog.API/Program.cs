@@ -1,10 +1,16 @@
+using BuildingBlocks.Behaviors;
+
 var builder = WebApplication.CreateBuilder(args);
 // Add services to container
-builder.Services.AddCarter();
+var assembly = typeof(Program).Assembly;
 builder.Services.AddMediatR(config =>
 {
-    config.RegisterServicesFromAssembly(typeof(Program).Assembly);
+    config.RegisterServicesFromAssembly(assembly);
+    config.AddOpenBehavior(typeof(ValidationBehaviors<,>));
 });
+builder.Services.AddValidatorsFromAssembly(assembly);
+builder.Services.AddCarter();
+
 //Configure Marten with UseLightweightSessions "Best Practice" for read and write  and Posteger SQL Connections string 
 builder.Services.AddMarten(opts =>
 {
