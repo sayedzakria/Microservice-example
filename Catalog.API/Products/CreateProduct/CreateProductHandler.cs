@@ -16,12 +16,11 @@ namespace Catalog.API.Products.CreateProduct
             RuleFor(x => x.Price).GreaterThan(0).WithMessage("Price must be grater than 0");
         }
     }
-    internal class CreateProductCommandtHandler(IDocumentSession documentSession,ILogger<CreateProductCommandtHandler>logger)
+    internal class CreateProductCommandtHandler(IDocumentSession documentSession)
         : ICommandHandler<CreateProductCommand, CreateProductResult>
     {
         public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
-            logger.LogInformation("CreateProductCommandtHandler.Handle called with {@command}", command);
 
 
             // create product entity from command
