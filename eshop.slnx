@@ -5,8 +5,11 @@
   <Folder Name="/Services/">
     <File Path="PostgresCommand.text" />
   </Folder>
+  <Folder Name="/Services/Basket/">
+    <Project Path="Services/Basket/Basket.API/Basket.API.csproj" Id="28aa4c4f-ecb5-47a6-ad48-8d50281d1bce" />
+  </Folder>
   <Folder Name="/Services/Catalog/">
-    <Project Path="Catalog.API/Catalog.API.csproj" Id="194217bb-a76a-4f33-84d8-f1d7c6131851" />
+    <Project Path="Services/Catalog/Catalog.API/Catalog.API.csproj" />
   </Folder>
   <Project Path="docker-compose.dcproj">
     <Build />

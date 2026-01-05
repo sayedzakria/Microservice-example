@@ -5,7 +5,7 @@ services:
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi
     build:
-      context: .
+      context: ./Services/Catalog/
       dockerfile: Catalog.API/Dockerfile
 
 volumes:
