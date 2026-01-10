@@ -1,5 +1,6 @@
 
 
+
 var builder = WebApplication.CreateBuilder(args);
 // Add services to container 
 builder.Services.AddCarter();
@@ -16,8 +17,10 @@ builder.Services.AddMarten(options =>
     options.Schema.For<ShopingCart>().Identity(x => x.UserName);
 }).UseLightweightSessions();
 builder.Services.AddScoped<IBsaketRepository, BsaketRepository>();
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 var app = builder.Build();
 
 //configure the HTTP requests pipeline
 app.MapCarter();
+app.UseExceptionHandler(options => { });
 app.Run();
