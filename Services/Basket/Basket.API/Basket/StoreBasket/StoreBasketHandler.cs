@@ -1,4 +1,5 @@
 ﻿
+
 namespace Basket.API.Basket.StoreBasket
 {
     public record StoreBasketCommand(ShopingCart Cart) : ICommand<StoreBasketResult>;
@@ -12,15 +13,15 @@ namespace Basket.API.Basket.StoreBasket
             RuleFor(x => x.Cart.Items).NotNull().WithMessage("Cart items cannot be null");
         }
     }
-    public class StoreBasketCommandHandler:ICommandHandler<StoreBasketCommand, StoreBasketResult>
+    public class StoreBasketCommandHandler(IBsaketRepository repository) 
+        :ICommandHandler<StoreBasketCommand, StoreBasketResult>
     {
         public async Task<StoreBasketResult> Handle(StoreBasketCommand command, CancellationToken cancellationToken)
         {
             ShopingCart cart = command.Cart;
-            // Simulate storing the basket (e.g., in a database)
-            await Task.Delay(100, cancellationToken); // Simulate async work
-            // For demonstration, we assume the basket is always stored successfully
-            return new StoreBasketResult("SWN");
+           
+            await repository.StoreBasket(cart, cancellationToken);
+            return new StoreBasketResult(cart.UserName);
         }
             
     }
