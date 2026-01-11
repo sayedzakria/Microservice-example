@@ -16,7 +16,13 @@ builder.Services.AddMarten(options =>
     options.Connection(builder.Configuration.GetConnectionString("Database"));
     options.Schema.For<ShopingCart>().Identity(x => x.UserName);
 }).UseLightweightSessions();
+
 builder.Services.AddScoped<IBsaketRepository, BsaketRepository>();
+builder.Services.Decorate<IBsaketRepository, CachBasketRepository>();
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetValue<string>("Redis");
+});
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 var app = builder.Build();
 
