@@ -21,12 +21,19 @@ builder.Services.AddScoped<IBsaketRepository, BsaketRepository>();
 builder.Services.Decorate<IBsaketRepository, CachBasketRepository>();
 builder.Services.AddStackExchangeRedisCache(options =>
 {
-    options.Configuration = builder.Configuration.GetValue<string>("Redis");
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
 });
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+builder.Services.AddHealthChecks();
+    //.AddNpgSql(builder.Configuration.GetConnectionString("Database"));
 var app = builder.Build();
 
 //configure the HTTP requests pipeline
 app.MapCarter();
 app.UseExceptionHandler(options => { });
+app.UseHealthChecks("/health")
+//    , new HealthCheckOptions
+//{
+//    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+//});
 app.Run();
