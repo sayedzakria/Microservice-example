@@ -8,5 +8,25 @@ namespace Discount.Grpc.Data
         {
         }
         public DbSet<Coupon> Coupons { get; set; } = default!;
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Coupon>().HasData(
+                new Coupon
+                {
+                    Id = 1,
+                    ProductName = "IPhone X",
+                    Description = "IPhone Discount",
+                    Amount = 150.00M
+                },
+                new Coupon
+                {
+                    Id = 2,
+                    ProductName = "Samsung S10",
+                    Description = "Samsung Discount",
+                    Amount = 100.00M
+                }
+            );
+        }
     }
 }
