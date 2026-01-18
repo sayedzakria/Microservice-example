@@ -482,3 +482,6 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+.kiro/specs/discount-database-fix/design.md
+.kiro/specs/discount-database-fix/tasks.md
+.kiro/specs/discount-database-fix/requirements.md
