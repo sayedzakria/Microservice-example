@@ -53,7 +53,19 @@ logger.LogInformation("Coupons in database: {@Coupons}", allCoupons);
         }
         public override Task<DeleteDiscountResponse> DeleteDiscount(DeleteDiscountRequest request, ServerCallContext context)
         {
-            return base.DeleteDiscount(request, context);
+            var coupon = _context.Coupons.FirstOrDefault(c => c.ProductName.Trim().ToLower() == request.ProductName.Trim().ToLower());
+            if (coupon == null)
+            {
+                throw new RpcException(new Status(StatusCode.NotFound, $"Coupon with ProductName={request.ProductName} not found"));
+            }
+            _context.Coupons.Remove(coupon);
+            _context.SaveChanges();
+            logger.LogInformation("Discount deleted for ProductName: {ProductName}", request.ProductName);
+            var response = new DeleteDiscountResponse
+            {
+                Success = true
+            };
+            return Task.FromResult(response);
         }
     }
 }
