@@ -1,4 +1,4 @@
-﻿
+﻿using Discount.Grpc;
 
 namespace Basket.API.Basket.StoreBasket
 {
@@ -13,16 +13,25 @@ namespace Basket.API.Basket.StoreBasket
             RuleFor(x => x.Cart.Items).NotNull().WithMessage("Cart items cannot be null");
         }
     }
-    public class StoreBasketCommandHandler(IBsaketRepository repository) 
+    public class StoreBasketCommandHandler(IBsaketRepository repository, DiscountService.DiscountServiceClient discountProto) 
         :ICommandHandler<StoreBasketCommand, StoreBasketResult>
     {
         public async Task<StoreBasketResult> Handle(StoreBasketCommand command, CancellationToken cancellationToken)
         {
             ShopingCart cart = command.Cart;
-           
+          await  DeductDiscountsFromCartItems(cart,cancellationToken);
+            
             await repository.StoreBasket(cart, cancellationToken);
             return new StoreBasketResult(cart.UserName);
         }
-            
+         
+        private async Task DeductDiscountsFromCartItems(ShopingCart cart,CancellationToken cancellationToken)
+        {
+            foreach (var item in cart.Items)
+            {
+                var coupon = await discountProto.GetDiscountAsync(new GetDiscountRequest { ProductName = item.ProductName });
+                item.Price -= (decimal)coupon.Amount; // Fix: cast double to decimal
+            }
+        }
     }
 }
