@@ -8,7 +8,7 @@ namespace Ordering.Domain.Models
     {
         internal OrderItem(OrderId orderId,ProductId productId,int quanity,decimal price)
         {
-            Id =OrderItemId.of( Guid.NewGuid());
+            Id =OrderItemId.Of( Guid.NewGuid());
             OrderId = orderId;
             ProductId = productId;
             Quantity = quanity;

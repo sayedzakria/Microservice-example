@@ -7,5 +7,19 @@ namespace Ordering.Domain.Models
     {
         public string Name { get; private set; }=default!;
         public decimal Price { get; private set; }= default!;
+        public static Product Create(ProductId id, string name, decimal price)
+        {
+            ArgumentException.ThrowIfNullOrEmpty(name);
+            if (price < 0)
+            {
+                throw new ArgumentException("Price cannot be negative.", nameof(price));
+            }
+            return new Product
+            {
+                Id = id,
+                Name = name,
+                Price = price
+            };
+        }
     }
 }
