@@ -1,5 +1,7 @@
 ﻿
 
+
+
 namespace Ordering.Domain.Models
 {
     public class Order : Aggregate<OrderId>
@@ -47,7 +49,7 @@ namespace Ordering.Domain.Models
             ArgumentOutOfRangeException.ThrowIfNegativeOrZero(price, nameof(price)); 
             var orderItem = new OrderItem(Id, productId, quantity, price);
                 _orderItems.Add(orderItem);
-                AddDomainEvent(new OrderItemAddedEvent(this, orderItem));
+              
         }
         public void RemoveOrderItem(OrderItemId orderItemId)
         {
@@ -55,7 +57,7 @@ namespace Ordering.Domain.Models
             if (orderItem != null)
             {
                 _orderItems.Remove(orderItem);
-                AddDomainEvent(new OrderItemRemovedEvent(this, orderItem));
+                
             }
         }
     }
