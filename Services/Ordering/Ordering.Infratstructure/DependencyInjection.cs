@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿
 
 
 namespace Ordering.Infratstructure
@@ -10,6 +9,9 @@ namespace Ordering.Infratstructure
         {
             // Register infrastructure services here
             var connectionString = configuration.GetConnectionString("Database");
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(connectionString));
+               // services.AddScoped<IOrderRepository, ApplicationDbContext>();
             return services;
         }
     }
