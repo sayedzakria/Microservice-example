@@ -2,6 +2,8 @@
 
 
 
+
+
 namespace Ordering.Infratstructure
 {
     public static class DependencyInjection
@@ -17,7 +19,7 @@ namespace Ordering.Infratstructure
                     options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
                     options.UseSqlServer(connectionString);
                 });
-               // services.AddScoped<IOrderRepository, ApplicationDbContext>();
+                services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
             return services;
         }
     }

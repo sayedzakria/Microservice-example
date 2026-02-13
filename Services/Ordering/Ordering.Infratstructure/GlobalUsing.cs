@@ -11,4 +11,4 @@ global using Microsoft.EntityFrameworkCore.Diagnostics;
 global using Microsoft.EntityFrameworkCore.ChangeTracking;
 global using Ordering.Domain.Abstractions;
 global using Ordering.Infratstructure.Data.Interceptors;
-
+global using Ordering.Application.Data;
