@@ -49,7 +49,7 @@ public class CreateOrderHandler(IApplicationDbContext dbContext)
         );
         foreach (var item in orderDto.OrderItems)
         {
-            newOrdr.AddOrderItem(
+            newOrdr.Add(
                 ProductId.Of(item.ProductId),
                 item.Quantity,
                 item.Price

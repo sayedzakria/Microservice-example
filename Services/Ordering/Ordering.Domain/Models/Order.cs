@@ -43,12 +43,13 @@ namespace Ordering.Domain.Models
             var orderItem = new OrderItem(Id, productId, quantity, price);
             _orderItems.Add(orderItem);
         }
-        public void updateorder(OrderName orderName, Address shippingAddress, Address billingAddress, Payment payment)
+        public void updateorder(OrderName orderName, Address shippingAddress, Address billingAddress, Payment payment,OrderStatus status)
         {
             OrderName = orderName;
             ShippingAddress = shippingAddress;
             BillingAddress = billingAddress;
             Payment = payment;
+            Status = status;
             AddDomainEvent(new OrderUpdatedEvent(this));
         }
             public void AddOrderItem(ProductId productId, int quantity, decimal price)
