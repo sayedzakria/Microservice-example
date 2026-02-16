@@ -11,3 +11,5 @@ global using Ordering.Application.Exceptions;
 global using BuildingBlocks.Behaviors;
 global using MediatR;
 global using Ordering.Domain.Events;
+global using Ordering.Application.Extensions;
+global using BuildingBlocks.Pagination;
