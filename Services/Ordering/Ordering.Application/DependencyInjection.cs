@@ -1,5 +1,6 @@
 ﻿
 
+
 namespace Ordering.Application
 {
     public static class DependencyInjection
@@ -7,10 +8,15 @@ namespace Ordering.Application
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             // Register application services here
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly() ));
+            services.AddMediatR(config =>
+            {
+                config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+                config.AddOpenBehavior(typeof(ValidationBehaviors<,>));
+                config.AddOpenBehavior(typeof(LoggingBehavior<,>));
+            });
 
             return services;
-           
+
         }
     }
 }
