@@ -16,7 +16,7 @@ namespace Ordering.Application.Extensions
             OrderItems: order.OrderItems.Select(oi => new OrderItemDto(oi.OrderId.Value, oi.ProductId.Value, oi.Quantity, oi.Price)).ToList()
         ));
         }
-    }
+    
 
     public static OrderDto ToOrderDto(this Order order)
         {
